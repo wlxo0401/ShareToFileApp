@@ -26,11 +26,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vqJ-nW-yY4">
-                                <rect key="frame" x="113" y="455.66666666666669" width="167" height="35"/>
+                                <rect key="frame" x="87.666666666666686" y="455.66666666666669" width="218" height="35"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Network File Share"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Network File Direct Share"/>
                                 <connections>
-                                    <action selector="networkFileShare:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KKb-8H-Ri9"/>
+                                    <action selector="networkFileDirectShare:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KKb-8H-Ri9"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OhC-DT-tcE">
@@ -42,6 +42,14 @@
                                     <action selector="createJsonAndShare:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qzR-0R-DZV"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7vN-86-FSK">
+                                <rect key="frame" x="92" y="502.66666666666674" width="209" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Network File Save Share"/>
+                                <connections>
+                                    <action selector="networkFileSaveShare:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z4Z-Jl-ZCV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -51,7 +59,9 @@
                             <constraint firstItem="5t2-KG-7Of" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="YnB-qe-JF0"/>
                             <constraint firstItem="vqJ-nW-yY4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eLw-kw-HkI"/>
                             <constraint firstItem="OhC-DT-tcE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="g5q-Tm-OPt"/>
+                            <constraint firstItem="7vN-86-FSK" firstAttribute="top" secondItem="vqJ-nW-yY4" secondAttribute="bottom" constant="12" id="m5J-fk-nB7"/>
                             <constraint firstItem="vqJ-nW-yY4" firstAttribute="top" secondItem="5t2-KG-7Of" secondAttribute="bottom" constant="12" id="pDt-i1-WrI"/>
+                            <constraint firstItem="7vN-86-FSK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qFb-Ie-TG4"/>
                         </constraints>
                     </view>
                 </viewController>

@@ -22,8 +22,8 @@ class ViewController: UIViewController {
         self.createAndShareCSVFile()
     }
     
-    @IBAction func networkFileShare(_ sender: Any) {
-        let url: String = "https://www.stats.govt.nz/assets/Uploads/Annual-enterprise-survey/Annual-enterprise-survey-2021-financial-year-provisional/Download-data/annual-enterprise-survey-2021-financial-year-provisional-csv.csv"
+    @IBAction func networkFileDirectShare(_ sender: Any) {
+        let url: String = "https://freetestdata.com/wp-content/uploads/2021/09/Free_Test_Data_1MB_XLSX.xlsx"
         
         // 파일의 원격 URL
         guard let fileURL = URL(string: url) else {
@@ -32,12 +32,25 @@ class ViewController: UIViewController {
         self.shareFile(at: fileURL)
     }
     
+    @IBAction func networkFileSaveShare(_ sender: Any) {
+        // 다운로드할 파일의 URL
+        guard let url = URL(string: "https://freetestdata.com/wp-content/uploads/2021/09/Free_Test_Data_1MB_XLSX.xlsx") else {
+            return
+        }
+        
+        // URLSession을 사용하여 파일 다운로드 요청 생성
+        let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
+        let downloadTask = session.downloadTask(with: url)
+        downloadTask.resume()
+    }
     
     
     // 공유
     func shareFile(at url: URL) {
-        let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-        present(activityViewController, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+            self.present(activityViewController, animated: true, completion: nil)
+        }
     }
 }
 
@@ -116,4 +129,31 @@ extension ViewController {
             }
             return csvString
         }
+}
+
+// MARK: - 파일 다운로드
+extension ViewController: URLSessionDelegate, URLSessionDownloadDelegate {
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        print("다운로드 저장 완료")
+        
+        // 파일 다운로드 완료 후 로컬에 저장된 파일의 URL
+        guard let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return
+        }
+        let destinationURL = documentsPath.appendingPathComponent("Free_Test_Data_1MB_XLSX.xlsx")
+        
+        do {
+            // 이동할 때 이미 파일이 존재한다면 삭제
+            if FileManager.default.fileExists(atPath: destinationURL.path) {
+                try FileManager.default.removeItem(at: destinationURL)
+            }
+            
+            // 다운로드된 파일을 로컬에 이동
+            try FileManager.default.moveItem(at: location, to: destinationURL)
+            // 다운로드된 파일을 iOS 파일 앱과 공유
+            self.shareFile(at: destinationURL)
+        } catch {
+            print("Error moving downloaded file: \(error)")
+        }
+    }
 }
